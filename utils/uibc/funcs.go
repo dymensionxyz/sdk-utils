@@ -25,15 +25,17 @@ func GetForeignDenomTrace(channelId string, denom string) transfertypes.DenomTra
 	return transfertypes.ParseDenomTrace(prefixedDenom)
 }
 
-type GetChannelClientState func(ctx sdk.Context, portID, channelID string) (string, exported.ClientState, error)
+type ChainIDFromPortChannelKeeper interface {
+	GetChannelClientState(ctx sdk.Context, portID, channelID string) (string, exported.ClientState, error) // implemented by ibc channel keeper
+}
 
 func ChainIDFromPortChannel(
 	ctx sdk.Context,
-	getChannelClientState GetChannelClientState,
+	keeper ChainIDFromPortChannelKeeper,
 	portID string,
 	channelID string,
 ) (string, error) {
-	_, state, err := getChannelClientState(ctx, portID, channelID)
+	_, state, err := keeper.GetChannelClientState(ctx, portID, channelID)
 	if err != nil {
 		return "", errorsmod.Wrap(err, "get channel client state")
 	}
