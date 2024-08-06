@@ -4,9 +4,10 @@ go 1.22.4
 
 require (
 	cosmossdk.io/errors v1.0.1
-	github.com/cosmos/cosmos-sdk v0.47.12
+	github.com/cosmos/cosmos-sdk v0.47.13
 	github.com/cosmos/ibc-go/v7 v7.5.1
 	github.com/dymensionxyz/gerr-cosmos v1.0.0
+	github.com/stretchr/testify v1.9.0
 )
 
 require (
@@ -101,7 +102,6 @@ require (
 	github.com/spf13/cobra v1.8.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.18.2 // indirect
-	github.com/stretchr/testify v1.9.0 // indirect
 	github.com/subosito/gotenv v1.6.0 // indirect
 	github.com/syndtr/goleveldb v1.0.1-0.20220721030215-126854af5e6d // indirect
 	github.com/tendermint/go-amino v0.16.0 // indirect
