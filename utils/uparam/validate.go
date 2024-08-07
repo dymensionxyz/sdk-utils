@@ -67,6 +67,7 @@ func ValidateNonNegativeDec(x any) error {
 	return err
 }
 
+// ZeroToOneDec allows any value in [0,1]
 func ZeroToOneDec(x any) (sdk.Dec, error) {
 	y, err := NonNegativeDec(x)
 	if err != nil {
