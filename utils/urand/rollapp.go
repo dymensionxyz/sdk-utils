@@ -6,8 +6,8 @@ import (
 	"github.com/cometbft/cometbft/libs/rand"
 )
 
-// GenerateRollappID generates a unique rollapp ID, following the pattern: "name_1234-1"
-func GenerateRollappID() string {
+// RollappID generates a unique rollapp ID, following the pattern: "name_1234-1"
+func RollappID() string {
 	name := make([]byte, 8)
 	for i := range name {
 		name[i] = byte(rand.Intn('z'-'a'+1) + 'a')
