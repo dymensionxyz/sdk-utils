@@ -2,7 +2,6 @@ package uevent
 
 import (
 	"encoding/json"
-	"fmt"
 	"slices"
 
 	abci "github.com/cometbft/cometbft/abci/types"
@@ -36,7 +35,7 @@ func TypedEventToEvent(tev proto.Message) (ev sdk.Event, err error) {
 		return
 	}
 
-	var attrMap map[string]any
+	var attrMap map[string]json.RawMessage
 	if err = json.Unmarshal(evtJSON, &attrMap); err != nil {
 		return
 	}
@@ -50,7 +49,7 @@ func TypedEventToEvent(tev proto.Message) (ev sdk.Event, err error) {
 		v := attrMap[k]
 		attrs = append(attrs, abci.EventAttribute{
 			Key:   k,
-			Value: fmt.Sprintf("%v", v),
+			Value: removeSurroundingQuotes(v),
 		})
 	}
 
@@ -59,4 +58,12 @@ func TypedEventToEvent(tev proto.Message) (ev sdk.Event, err error) {
 		Attributes: attrs,
 	}
 	return
+}
+
+func removeSurroundingQuotes(bz []byte) string {
+	const dquote = 34
+	if len(bz) > 1 && bz[0] == dquote && bz[len(bz)-1] == dquote {
+		return string(bz[1 : len(bz)-1])
+	}
+	return string(bz)
 }
