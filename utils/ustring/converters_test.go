@@ -1,11 +1,11 @@
-package utypes_test
+package ustring_test
 
 import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/dymensionxyz/sdk-utils/utils/utypes"
+	"github.com/dymensionxyz/sdk-utils/utils/ustring"
 )
 
 func TestStringToType(t *testing.T) {
@@ -33,10 +33,10 @@ func TestStringToType(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			switch tc.expected.(type) {
 			case customString:
-				result := utypes.StringToType[customString](tc.input)
+				result := ustring.FromString[customString](tc.input)
 				require.Equal(t, tc.expected, result)
 			case customBytes:
-				result := utypes.StringToType[customBytes](tc.input)
+				result := ustring.FromString[customBytes](tc.input)
 				require.Equal(t, tc.expected, result)
 			}
 		})
@@ -68,10 +68,10 @@ func TestTypeToString(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			switch input := tc.input.(type) {
 			case customString:
-				result := utypes.TypeToString(input)
+				result := ustring.ToString(input)
 				require.Equal(t, tc.expected, result)
 			case customBytes:
-				result := utypes.TypeToString(input)
+				result := ustring.ToString(input)
 				require.Equal(t, tc.expected, result)
 			}
 		})

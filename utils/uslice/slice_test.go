@@ -1,4 +1,4 @@
-package uslices_test
+package uslice_test
 
 import (
 	"testing"
@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"golang.org/x/exp/maps"
 
-	"github.com/dymensionxyz/sdk-utils/utils/uslices"
+	"github.com/dymensionxyz/sdk-utils/utils/uslice"
 )
 
 func TestToKeySet(t *testing.T) {
@@ -39,49 +39,8 @@ func TestToKeySet(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			result := uslices.ToKeySet(tc.input)
+			result := uslice.ToKeySet(tc.input)
 			require.True(t, maps.Equal(tc.expected, result))
-		})
-	}
-}
-
-func TestMerge(t *testing.T) {
-	testCases := []struct {
-		name     string
-		input    [][]int
-		expected []int
-	}{
-		{
-			name:     "No slices",
-			input:    [][]int{},
-			expected: []int{},
-		},
-		{
-			name:     "Single empty slice",
-			input:    [][]int{{}},
-			expected: []int{},
-		},
-		{
-			name:     "Single non-empty slice",
-			input:    [][]int{{1, 2, 3}},
-			expected: []int{1, 2, 3},
-		},
-		{
-			name:     "Multiple non-empty slices",
-			input:    [][]int{{1, 2}, {3, 4}, {5}},
-			expected: []int{1, 2, 3, 4, 5},
-		},
-		{
-			name:     "Multiple slices, some empty",
-			input:    [][]int{{1, 2}, {}, {3, 4}, {}, {5}},
-			expected: []int{1, 2, 3, 4, 5},
-		},
-	}
-
-	for _, tc := range testCases {
-		t.Run(tc.name, func(t *testing.T) {
-			result := uslices.Merge(tc.input...)
-			require.Equal(t, tc.expected, result)
 		})
 	}
 }
@@ -121,7 +80,7 @@ func TestMap(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			result := uslices.Map(tc.input, tc.mapFunc)
+			result := uslice.Map(tc.input, tc.mapFunc)
 			require.Equal(t, tc.expected, result)
 		})
 	}
