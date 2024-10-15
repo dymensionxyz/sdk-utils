@@ -1,4 +1,4 @@
-package uaddress_test
+package uaddr_test
 
 import (
 	"testing"
@@ -8,7 +8,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/bech32"
 	"github.com/stretchr/testify/require"
 
-	"github.com/dymensionxyz/sdk-utils/utils/uaddress"
+	"github.com/dymensionxyz/sdk-utils/utils/uaddr"
 )
 
 func TestBech32ToAddr(t *testing.T) {
@@ -29,7 +29,7 @@ func TestBech32ToAddr(t *testing.T) {
 			require.NoError(t, err)
 
 			// convert the random-prefixed bech32 to the current val oper address
-			valOperAddr, err := uaddress.Bech32ToAddr[sdk.ValAddress](randomPrefixedAddr)
+			valOperAddr, err := uaddr.FromBech32[sdk.ValAddress](randomPrefixedAddr)
 			require.NoError(t, err)
 
 			// check results
