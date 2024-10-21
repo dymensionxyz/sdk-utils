@@ -25,10 +25,16 @@ func GetForeignDenomTrace(channelId string, denom string) transfertypes.DenomTra
 	return transfertypes.ParseDenomTrace(prefixedDenom)
 }
 
+// ChainIDFromPortChannelKeeper is a dependency for ChainIDFromPortChannel(
+// Deprecated: ChainIDFromPortChannel is deprecated.
 type ChainIDFromPortChannelKeeper interface {
 	GetChannelClientState(ctx sdk.Context, portID, channelID string) (string, exported.ClientState, error) // implemented by ibc channel keeper
 }
 
+// ChainIDFromPortChannel returns the chain ID associated to the light client for the channel
+// Deprecated: this method can still be used if chain ID is needed, but the chain ID of the
+// light client is not a reliable way to identify a rollapp, since a rollapp can have the same
+// chain ID as a non rollapp chain connected to the hub.
 func ChainIDFromPortChannel(
 	ctx sdk.Context,
 	keeper ChainIDFromPortChannelKeeper,
