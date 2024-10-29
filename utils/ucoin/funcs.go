@@ -15,6 +15,11 @@ func MulDec(dec sdk.Dec, coins ...sdk.Coin) sdk.Coins {
 	return ret
 }
 
+func SimpleMul(c sdk.Coin, x int64) sdk.Coin {
+	c.Amount = c.Amount.Mul(sdk.NewInt(x))
+	return c
+}
+
 // SimpleMin returns the coin whos amt is less, a if equal
 func SimpleMin(a sdk.Coin, b sdk.Coin) sdk.Coin {
 	if a.Amount.LTE(b.Amount) {

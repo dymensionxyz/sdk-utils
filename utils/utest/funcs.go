@@ -8,6 +8,6 @@ type Truer interface {
 	True(value bool, msgAndArgs ...interface{})
 }
 
-func IsErr(t Truer, expected, actual error) {
-	t.True(errorsmod.IsOf(actual, expected))
+func IsErr(t Truer, actual, expected error) {
+	t.True(errorsmod.IsOf(actual, expected), "error is not an instance of expected: expected: %T: got: %T", expected, actual)
 }
