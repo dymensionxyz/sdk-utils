@@ -9,5 +9,5 @@ type Truer interface {
 }
 
 func IsErr(t Truer, actual, expected error) {
-	t.True(errorsmod.IsOf(actual, expected), "error is not an instance of expected: expected: %T: got: %T", expected, actual)
+	t.True(errorsmod.IsOf(actual, expected), `error is not an instance of expected: expected: %T, %s: got: %T, %s`, expected, expected, actual, actual)
 }
