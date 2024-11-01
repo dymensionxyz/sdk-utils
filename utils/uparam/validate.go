@@ -83,3 +83,16 @@ func ValidateZeroToOneDec(x any) error {
 	_, err := ZeroToOneDec(x)
 	return err
 }
+
+func Coin(x any) (sdk.Coin, error) {
+	v, ok := x.(sdk.Coin)
+	if !ok {
+		return sdk.Coin{}, errorsmod.WithType(gerrc.ErrInvalidArgument, x)
+	}
+	return v, nil
+}
+
+func ValidateCoin(x any) error {
+	_, err := Coin(x)
+	return err
+}
