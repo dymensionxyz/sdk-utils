@@ -2,6 +2,7 @@ package uparam
 
 import (
 	errorsmod "cosmossdk.io/errors"
+	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/dymensionxyz/gerr-cosmos/gerrc"
 )
@@ -35,10 +36,10 @@ func ValidatePositiveUint64(x any) error {
 	return err
 }
 
-func Dec(x any) (sdk.Dec, error) {
-	v, ok := x.(sdk.Dec)
+func Dec(x any) (math.LegacyDec, error) {
+	v, ok := x.(math.LegacyDec)
 	if !ok {
-		return sdk.Dec{}, errorsmod.WithType(gerrc.ErrInvalidArgument, x)
+		return math.LegacyDec{}, errorsmod.WithType(gerrc.ErrInvalidArgument, x)
 	}
 	return v, nil
 }
@@ -48,16 +49,16 @@ func ValidateDec(x any) error {
 	return err
 }
 
-func NonNegativeDec(x any) (sdk.Dec, error) {
+func NonNegativeDec(x any) (math.LegacyDec, error) {
 	y, err := Dec(x)
 	if err != nil {
-		return sdk.Dec{}, err
+		return math.LegacyDec{}, err
 	}
 	if y.IsNil() {
-		return sdk.Dec{}, gerrc.ErrInvalidArgument.Wrap("expect not nil")
+		return math.LegacyDec{}, gerrc.ErrInvalidArgument.Wrap("expect not nil")
 	}
 	if y.IsNegative() {
-		return sdk.Dec{}, gerrc.ErrOutOfRange.Wrap("expect not negative")
+		return math.LegacyDec{}, gerrc.ErrOutOfRange.Wrap("expect not negative")
 	}
 	return y, nil
 }
@@ -68,13 +69,13 @@ func ValidateNonNegativeDec(x any) error {
 }
 
 // ZeroToOneDec allows any value in [0,1]
-func ZeroToOneDec(x any) (sdk.Dec, error) {
+func ZeroToOneDec(x any) (math.LegacyDec, error) {
 	y, err := NonNegativeDec(x)
 	if err != nil {
-		return sdk.Dec{}, err
+		return math.LegacyDec{}, err
 	}
-	if y.GT(sdk.OneDec()) {
-		return sdk.Dec{}, gerrc.ErrOutOfRange.Wrap("expect less than or equal to one")
+	if y.GT(math.LegacyOneDec()) {
+		return math.LegacyDec{}, gerrc.ErrOutOfRange.Wrap("expect less than or equal to one")
 	}
 	return y, nil
 }

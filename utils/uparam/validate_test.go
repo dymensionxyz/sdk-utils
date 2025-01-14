@@ -3,7 +3,7 @@ package uparam
 import (
 	"testing"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"cosmossdk.io/math"
 	"github.com/stretchr/testify/require"
 )
 
@@ -31,7 +31,7 @@ func TestValidatePositiveUint64(t *testing.T) {
 
 func TestValidateDec(t *testing.T) {
 	t.Run("valid", func(t *testing.T) {
-		x := sdk.Dec{}
+		x := math.LegacyDec{}
 		require.NoError(t, ValidateDec(x))
 	})
 	t.Run("invalid", func(t *testing.T) {
@@ -42,26 +42,26 @@ func TestValidateDec(t *testing.T) {
 
 func TestValidateNonNegativeDec(t *testing.T) {
 	t.Run("valid", func(t *testing.T) {
-		x := sdk.OneDec()
+		x := math.LegacyOneDec()
 		require.NoError(t, ValidateNonNegativeDec(x))
 	})
 	t.Run("invalid - nil", func(t *testing.T) {
-		x := sdk.ZeroDec().Sub(sdk.OneDec())
+		x := math.LegacyZeroDec().Sub(math.LegacyOneDec())
 		require.Error(t, ValidateNonNegativeDec(x))
 	})
 	t.Run("invalid - negative", func(t *testing.T) {
-		x := sdk.Dec{}
+		x := math.LegacyDec{}
 		require.Error(t, ValidateNonNegativeDec(x))
 	})
 }
 
 func TestValidateZeroToOneDec(t *testing.T) {
 	t.Run("valid", func(t *testing.T) {
-		x := sdk.MustNewDecFromStr("0.5")
+		x := math.LegacyMustNewDecFromStr("0.5")
 		require.NoError(t, ValidateZeroToOneDec(x))
 	})
 	t.Run("invalid - large number", func(t *testing.T) {
-		x := sdk.MustNewDecFromStr("100")
+		x := math.LegacyMustNewDecFromStr("100")
 		require.Error(t, ValidateZeroToOneDec(x))
 	})
 }
